@@ -5,8 +5,42 @@
 ]>
 <sql-queries>
     
-    <sql-query id="getFollowers">
-        <![CDATA[select id,user_id as userId FROM projectmanagement.followers_tbl where type = $1 and id_of_type = $2;]]>
+    <sql-query id="getEmployees">
+        <![CDATA[SELECT id, "name", age, address, salary, dept_id FROM public.employee;]]>
+    </sql-query>
+
+    <sql-query id="insertEmployees">
+        <![CDATA[INSERT INTO public.employee
+                        ("name", age, address, salary, dept_id)
+                        VALUES($1, $2, $3, $4, $5) returning id;]]>
     </sql-query>
     
+    <sql-query id="updateEmployees">
+        <![CDATA[UPDATE public.employee 
+        SET "name" = $1, age = $2, address = $3, salary = $4, dept_id = $5 
+        WHERE id = $6;]]>
+    </sql-query>
+
+    <sql-query id="deleteEmployees">
+        <![CDATA[DELETE FROM public.employee WHERE id = $1;]]>
+    </sql-query>
+
+    <sql-query id="getDepartments">
+        <![CDATA[SELECT id, "name" FROM public.department;]]>
+    </sql-query>
+
+    <sql-query id="insertDepartments">
+        <![CDATA[INSERT INTO public.department
+                        ("name")
+                        VALUES($1) returning id;]]>
+    </sql-query>
+
+    <sql-query id="updateDepartments">
+        <![CDATA[UPDATE public.department SET name = $1 WHERE id = $2;]]>
+    </sql-query>
+
+    <sql-query id="deleteDepartments">
+        <![CDATA[DELETE FROM public.department WHERE id = $1;]]>
+    </sql-query>
+
 </sql-queries>

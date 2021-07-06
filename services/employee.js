@@ -1,23 +1,55 @@
 //getEmployees
-exports.getEmployees = (data, callback) => {
-  console.log("inGetEmployees");
-  callback(null, "inGetEmployees");
+exports.getEmployees = (callback) => {
+  executeQuery.query(sqlQueryMap['getEmployees'],
+    [], (err, result) => {
+      if (err) {
+        console.log("err", err);
+        callback(err, null);
+      } else {
+        console.log("result", result.rows);
+        callback(null, result.rows);
+      }
+    });
 }
 
 //CreatEmployees
 exports.createEmployee = (data, callback) => {
-  console.log("inCreateEmployees");
-  callback(null, "inCreateEmployees");
+  executeQuery.query(sqlQueryMap['insertEmployees'],
+    [data.name, data.age, data.address, data.salary, data.dept_id], (err, result) => {
+      if (err) {
+        console.log("err", err);
+        callback(err, null);
+      } else {
+        console.log("result", result.rows[0].id);
+        callback(null, result.rows[0].id);
+      }
+    });
 }
 
 //UpdateEmployees
 exports.editEmployee = (data, callback) => {
-  console.log("inEditEmployees");
-  callback(null, "inEditEmployees");
+  executeQuery.query(sqlQueryMap['updateEmployees'],
+    [data.name, data.age, data.address, data.salary, data.dept_id, data.id], (err, result) => {
+      if (err) {
+        console.log("err", err);
+        callback(err, null);
+      } else {
+        console.log("result", result);
+        callback(null, result.rowCount);
+      }
+    });
 }
 
 //deleteEmployees
 exports.deleteEmployee = (data, callback) => {
-  console.log("inDeleteEmployees");
-  callback(null, "inDeleteEmployees");
+  executeQuery.query(sqlQueryMap['deleteEmployees'],
+    [data.id], (err, result) => {
+      if (err) {
+        console.log("err", err);
+        callback(err, null);
+      } else {
+        console.log("result", result);
+        callback(null, result.rowCount);
+      }
+    });
 }
